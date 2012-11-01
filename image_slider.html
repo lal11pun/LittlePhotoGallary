@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Image Slider</title>
+		<meta charset="UTF8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="image_slider.js"></script>
+		<script>
+			$(document).ready(function(){
+				var imgs = [
+					{'name':'My Beautiful Wife', 'width':'272px', 'height':'408px', 'url':'images/Prepare.JPG'},
+					{'name':'The Runway', 'width':'475px', 'height':'317px', 'url':'images/Runway.JPG'},
+					{'name':'We are looking good, are\'t we ?', 'width':'408px', 'height':'272px', 'url':'images/ComingIn.JPG'},
+					{'name':'Stare and Spin', 'width':'272px', 'height':'408px', 'url':'images/Stare&Spin.JPG'},
+					{'name':'I said what I meant', 'width':'475px', 'height':'317px', 'url':'images/Vow.JPG'},
+					{'name':'I am good at this!', 'width':'386px', 'height':'295px', 'url':'images/Sing.jpg'}
+				];
+				
+				var options ={'interval':5000, 'callback':function(img){$('#disc').text(img.alt);}};
+				
+				$('#container').imageslider(imgs, options);
+			})
+		</script>
+		<style>
+			body{
+				padding:0;
+				margin:0;
+			}
+			#main {
+				text-align: center;
+			}
+			#disc {
+				position: relative;
+			}
+			#container {
+				margin-top: 30px;
+			}
+			#pause{
+				display:none;
+				color:#2E64FE;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<h1>Little Photo Gallery: My Wedding</h1>
+			<p>Press <em>space</em> to pause/resume</p>
+			<div id="container"></div>
+			<span id="pause">Pause</span>
+			<h3 id="disc"></h3>
+		</div>
+	</body>
+</html>

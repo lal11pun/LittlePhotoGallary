@@ -1,0 +1,103 @@
+(function($)
+{ 
+	$.fn.imageSlide=function(options)
+	{     
+		//We define the default values
+		var defaults=
+		{
+			'interval': 5000,		
+			'width': '300px',	
+			'height': '150px',		
+			'scaleWidth': true,		
+			'scaleHeight': true,	       
+			'createLinks': false,		
+			'callback': null
+		};  
+           
+		//We merge the JSON
+		var parameters=$.extend(defaults, options);
+		
+	    //If the interval is too small, we fix it.
+	    parameters.interval=Math.max(1000,parameters.interval);
+		
+		return this.each(function()
+	    {
+			//We store the element by convenience
+			var element=$(this);
+							
+			//We count the number of images
+			var totalImages=element.find('img').length;
+			
+			//This counter will permit us to iterate over the gallery
+			var counter=0;
+				
+			//We modify the style of the gallery
+			element.css(
+			{
+				'border': '1px solid #000',
+				'width': parameters.width,
+				'height': parameters.height,
+				'overflow': 'hidden'
+			}).find('img').each(function(id) //For each found images...
+			{
+				//If we have to adjust its size...
+				if(parameters.scaleWidth)
+				{
+					$(this).css('width','100%')
+				}
+				if(parameters.scaleHeight)
+				{
+					$(this).css('height','100%')
+				}
+				
+				//If we have to create links...
+				if(parameters.createLinks)
+				{
+					$(this).css(
+					{
+						'border': '0px'
+					});
+					
+					//We said that we get the link via the alt attribute
+					$(this).wrap('<a href="'+$(this).attr('alt')+'"></a>');
+				}					
+				
+				//Only the first image has to be displayed
+				if(id>0)
+				{
+					$(this).hide();
+				}
+			});
+			
+			//And then, we define the interval to change the images!
+			setInterval(function()
+			{	
+				//We get the current visible image to make it invisible
+				element.find('img:eq('+counter+')').fadeOut(function()
+				{						
+					//If it's not the last image, we increment the counter
+					//Otherwise, we set it to 0		
+					if(counter!=totalImages-1)
+					{
+						counter++;
+					}
+					else
+					{
+						counter=0;
+					}
+					
+					//Now, we make the next image visible
+					element.find('img:eq('+counter+')').fadeIn(function()
+					{
+						//If we have defined a callback, we run it
+						//by sending the image as parameter!
+						if(parameters.callback)
+						{
+							parameters.callback($(this));
+						}
+					});
+				});
+			},parameters.interval);
+		});						   
+	};
+})(jQuery);

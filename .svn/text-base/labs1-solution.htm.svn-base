@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Plugins: Labs</title>
+		<meta charset="UTF-8" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="labs1-solution.js"></script>
+		<script>			
+			$(function()
+			{
+				$('#gallery').imageSlide(
+				{
+					'interval': 3500,
+					'width': '500px',
+					'height': '300px',
+					'createLinks': true,
+					'callback': function(image)
+					{
+						$('#description').text(image.attr('title'));
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div style="text-align: center;">
+			<h1>jQuery Plugins: Labs</h1>
+			<p id="gallery" style="margin: auto;">
+				<img src="../images/1.jpg" title="Zebra" alt="http://en.wikipedia.org/wiki/Zebra" />
+				<img src="../images/2.jpg" title="Bridge" alt="http://en.wikipedia.org/wiki/Bridge" />
+				<img src="../images/3.jpg" title="Beach" alt="http://en.wikipedia.org/wiki/Beach" />
+				<img src="../images/4.jpg" title="Flowers" alt="http://en.wikipedia.org/wiki/Flower" />
+			</p>
+			<p id="description">Zebra</p>
+			<p style="text-align: center;"><em>Images from <a href="http://www.freephotobank.org/">http://www.freephotobank.org/</a>.</em></p>
+		</div>
+	</body>
+</html>
